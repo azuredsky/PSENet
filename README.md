@@ -1,10 +1,10 @@
 # Shape Robust Text Detection with Progressive Scale Expansion Network
 
 ## Requirements
-* Python 2.7
+* Python 3.6
 * PyTorch v0.4.1+
 * pyclipper
-* Polygon2
+* Polygon3
 * OpenCV 3.4 (for c++ version pse)
 * opencv-python 3.4
 
