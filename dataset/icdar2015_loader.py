@@ -24,7 +24,7 @@ def get_img(img_path):
         img = cv2.imread(img_path)
         img = img[:, :, [2, 1, 0]]
     except Exception as e:
-        print img_path
+        print(img_path)
         raise
     return img
 
@@ -34,6 +34,7 @@ def get_bboxes(img, gt_path):
     bboxes = []
     tags = []
     for line in lines:
+        line = util.str.remove_all(line, '\ufeff')
         line = util.str.remove_all(line, '\xef\xbb\xbf')
         gt = util.str.split(line, ',')
         if gt[-1][0] == '#':
@@ -192,7 +193,7 @@ class IC15Loader(data.Dataset):
         gt_text = np.zeros(img.shape[0:2], dtype='uint8')
         training_mask = np.ones(img.shape[0:2], dtype='uint8')
         if bboxes.shape[0] > 0:
-            bboxes = np.reshape(bboxes * ([img.shape[1], img.shape[0]] * 4), (bboxes.shape[0], bboxes.shape[1] / 2, 2)).astype('int32')
+            bboxes = np.reshape(bboxes * ([img.shape[1], img.shape[0]] * 4), (bboxes.shape[0], int(bboxes.shape[1] / 2), 2)).astype('int32')
             for i in range(bboxes.shape[0]):
                 cv2.drawContours(gt_text, [bboxes[i]], -1, i + 1, -1)
                 if not tags[i]:

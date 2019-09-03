@@ -9,7 +9,7 @@ import shutil
 from torch.autograd import Variable
 from torch.utils import data
 import os
-
+sys.path.append(r'./util')  # 要用绝对路径
 from dataset import IC15Loader
 from metrics import runningScore
 import models
@@ -110,6 +110,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
     end = time.time()
     for batch_idx, (imgs, gt_texts, gt_kernels, training_masks) in enumerate(train_loader):
+        print(batch_idx)
         data_time.update(time.time() - end)
 
         imgs = Variable(imgs.cuda())
